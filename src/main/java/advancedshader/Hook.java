@@ -774,7 +774,7 @@ public class Hook extends DummyModContainer {
             try {
                 map = new Gson().fromJson(new InputStreamReader(new GZIPInputStream(Hook.class.getResourceAsStream("/idmap.gz"))), TypeToken.getParameterized(Map.class, String.class, BlockMapper.class).getType());
             } catch (Throwable e) {
-                LOGGER.error("我那么大一个idmap.gz方块ID映射表呢？？？");
+                LOGGER.error("Where is my block ID mapping?");
             }
 
             idMap = map;
@@ -820,7 +820,7 @@ public class Hook extends DummyModContainer {
                     if (key.equals("renderer")) {
                         forwardVersion = !forwardVersion;
 
-                        LOGGER.info("切换渲染机制：{}", forwardVersion ? "1.16.5" : "1.12.2");
+                        LOGGER.info("Switch rendering mechanism: {}", forwardVersion ? "1.16.5" : "1.12.2");
 
                         // 谢谢你IterationT
                         if (forwardVersion) {
@@ -846,7 +846,7 @@ public class Hook extends DummyModContainer {
                             idMapping = false;
                         }
 
-                        LOGGER.info("切换方块ID版本：{}", idMapping ? "1.16.5" : "1.12.2");
+                        LOGGER.info("Switch block ID version:{}", idMapping ? "1.16.5" : "1.12.2");
 
                         BlockAliases.reset();
                         BlockAliases.update(Shaders.getShaderPack());
@@ -858,7 +858,7 @@ public class Hook extends DummyModContainer {
                     } else if (key.equals("playerMood")) {
                         playerMood = !playerMood;
 
-                        LOGGER.info("切换氛围值机制：{}", playerMood ? "1.16.5" : "1.12.2");
+                        LOGGER.info("Switch atmosphere value mechanism:{}", playerMood ? "1.16.5" : "1.12.2");
                     } else {
                         return false;
                     }
@@ -2950,7 +2950,7 @@ public class Hook extends DummyModContainer {
                     Class<?> clazz = Class.forName("mchorse.aperture.client.AsmShaderHandler");
 
                     apertureResolveIncludes = Optional.of(getMethod(clazz, "getCachedShader", Object.class, String.class, IShaderPack.class, int.class, List.class, int.class));
-                    LOGGER.info("已检测到可兼容的 Aperture 模组");
+                    LOGGER.info("Compatible Aperture mod detected");
                 } catch (Exception e) {
                     apertureResolveIncludes = Optional.empty();
                 }
@@ -3529,75 +3529,73 @@ public class Hook extends DummyModContainer {
 
         ModMetadata meta = this.getMetadata();
         meta.modId = "advancedshader";
-        meta.name = "光影前向兼容AdvancedShader";
-        meta.version = "1.0-FINAL";
-        meta.credits += "\n致谢：";
-        meta.credits += "\n  在我最孤单时陪着我的朋友： ネムロイ、阳炘 （没有他们就没有这个模组了哦）";
-        meta.credits += "\n  内测参与者： Surisen（内测的神， 几乎所有严重Bug都是这位发现的）、ExDragine（宣发支持）、GeForceLegend（Bug提交者）、villa_qi（Bug提交者）、EpsilonSatoshi、少修、奥维利亚two";
+        meta.name = "AdvancedShader";
+        meta.version = "1.0.2-FTR";
+        meta.credits += "\ncredits：";
+        meta.credits += "\n  Thank you to ネムロイ and 阳炘 who accompanied me during my loneliest moments: ネムロイ, 阳炘 (there wouldn't be this mod without them)";
+        meta.credits += "\n  Internal testing participants: Surisen (almost all serious bugs were discovered by this person), ExDragine (popularize), GeForceLegend (Bug submitter), villa_qi (Bug submitter), EpsilonSatoshi, 少修, and 奥维利亚two";
         meta.authorList = ImmutableList.of("一只猫", "I have no name", "I am but two days old", "you can call me V", "and this is POWER!");
-        meta.description += TextFormatting.RED + "" + TextFormatting.BOLD + "<由于作者身体原因， 本模组不再进行维护与更新， 如有Bug， 凑合用吧~>\n" + TextFormatting.RESET;
+        meta.description += TextFormatting.RED + "" + TextFormatting.BOLD + "<Due to the author's health reasons, this mod will no longer be maintained or updated>\n" + TextFormatting.RESET;
         meta.description += "\n";
-        meta.description += "“有欲望而无行动者滋生瘟疫。”\n";
-        meta.description += "这就是为什么我写了这个模组\n";
-        meta.description += "这是一个很简单的模组， 只是让你能在这里使用Minecraft 1.16.5+光影， 仅此而已。\n";
+        meta.description += "After activation, shaders suitable for Minecraft 1.16.5+versions can be used.\n";
         meta.description += "\n";
-        meta.description += "如果有奇奇怪怪的渲染问题请尝试将渲染机制在1.12.2和1.16.5之间反复横跳\n";
-        meta.description += "如果草方块像摇曳鳗一样晃起来了的话请将方块ID设为1.16.5\n";
-        meta.description += "如果你想知道什么时候会被游戏的惊悚声音吓一跳的话请将氛围值机制设为1.16.5并打开F3\n";
-        meta.description += "Have fun~\n";
+        meta.description += "If there are strange rendering issues, please try switching rendering mechanisms\n";
+        meta.description += "If the grass block is shaking, please set the block ID version to 1.16.5\n";
+        meta.description += "If you want to know when you will be startled by the thrilling sound of the game, please set the atmosphere value mechanism to 1.16.5 and turn on F3\n";
+        meta.description += "Have fun\n";
         meta.description += "\n";
         meta.description += "\n";
-        meta.description += "支持特性：\n";
-        meta.description += " - 计算着色器与colorimg、 shadowcolorimg\n";
-        meta.description += " - RenderTargets注释和colortex8-15\n";
-        meta.description += " - Prepare预处理着色器和ShadowComp阴影后处理着色器\n";
-        meta.description += " - RenderStage渲染阶段Uniform变量\n";
-        meta.description += " - 1.17+的Core Profile （不支持alphaTestRef）\n";
-        meta.description += " - at_midBlock顶点属性\n";
-        meta.description += " - gbuffers_line线段着色器\n";
-        meta.description += " - 8 bits 与 16 bits 的整数型纹理格式\n";
-        meta.description += " - 100个后处理着色器 （#6530， 嗯……无力吐槽）\n";
-        meta.description += " - 阴影阶段渲染地形、实体、实体方块配置\n";
-        meta.description += " - size.buffer.<buffer>配置和blend.<program>.<buffer>配置\n";
+        meta.description += "Support feature：\n";
+        meta.description += " - Compute Shaders and colorimg, shadowcolorimg\n";
+        meta.description += " - RenderTargets comment and colortex8-15\n";
+        meta.description += " - Prepare preprocess shader and ShadowComp shadow post-processing shader\n";
+        meta.description += " - RenderStage Uniform variable\n";
+        meta.description += " - Core Profile (do not support alphaTestRef)\n";
+        meta.description += " - at_midBlock vertex attribute\n";
+        meta.description += " - gbuffers_line line segment shader\n";
+        meta.description += " - Integer texture formats of 8 bits and 16 bits\n";
+        meta.description += " - 100 post-processing shaders (#6530)\n";
+        meta.description += " - Rendering terrain, entities, and solid block configurations during the shadow phase\n";
+        meta.description += " - size.buffer.<buffer> configuration and blend.<program>.<buffer> configuration\n";
         meta.description += "\n";
-        meta.description += "不支持特性：\n";
-        meta.description += " - at_velocity顶点属性 （没法写~不过我让它固定为0了）\n";
-        meta.description += " - 阴影视裁框剔除 （懒得写~）\n";
+        meta.description += "Not supported feature:\n";
+        meta.description += " - at_velocity vertex attribute (fixed to 0)\n";
+        meta.description += " - Shadow based frame removal\n";
         meta.description += "\n";
-        meta.description += "其他修改：\n";
-        meta.description += " - 增加渲染机制、方块ID、氛围值机制选项用以模拟高版本特性\n";
-        meta.description += " - 修复了无法正常加载压缩包内语言文件的破Bug （英文文件是en_US大小写混合， 其他语言是zh_cn这种全小写的， 文件名还区分大小写= =去死吧！）\n";
-        meta.description += " - 支持识别in顶点属性（以前好像不识别来着……？） \n";
-        meta.description += " - 支持同时开启光影与各向异性过滤\n";
-        meta.description += " - shaders.properties增加对光影选项宏的支持 （看着好像是没写完， 高版本已经有了， 顺便补一下吧）\n";
-        meta.description += " - 修复新版本JRE（8u292-b10之后）导致无法打开光影文件夹的问题\n";
-        meta.description += " - 修复block.properties无法正常匹配方块状态问题\n";
-        meta.description += " - 增加biome_category与biome_precipitation用于自定义Uniform\n";
-        meta.description += " - cameraPosition更改为实际相机位置\n";
-        meta.description += " - 修改物品侧面UV防止dfdx、dfdy返回0\n";
-        meta.description += " - 兼容Aperture模组 （但光影本身不兼容Aperture的则没办法= =）\n";
-        meta.description += " - 修复宏状态机的bug\n";
+        meta.description += "Other modifications:\n";
+        meta.description += " - Add options for rendering mechanism, block ID, and atmosphere value mechanism to simulate high version features\n";
+        meta.description += " - Fixed a bug where language files in compressed files cannot be loaded properly (English files are case mixed with en-US, while other languages are all lowercase like zh_cn, and file names are also case sensitive)\n";
+        meta.description += " - Support recognition of in vertex attributes (previously seemed unable to recognize...?) \n";
+        meta.description += " - Support simultaneous activation of light and shadow as well as anisotropic filtering\n";
+        meta.description += " - Shaders. properties adds support for macro options for light and shadow (it seems like it's not finished yet, but it's already available in higher versions)\n";
+        meta.description += " - Fixed the issue where the new version of JRE (after 8u292-b10) caused the inability to open the shadow folder\n";
+        meta.description += " - Fix block. properties unable to match block status properly\n";
+        meta.description += " - Add biome_category and biome_precipitation for customizing Uniform\n";
+        meta.description += " - Change cameraPosition to actual camera position\n";
+        meta.description += " - Modify the UV protection on the side of the item to prevent dfdx and dfdy from returning 0\n";
+        meta.description += " - Compatible with Aperture mod (but not compatible with Aperture for lighting itself)\n";
+        meta.description += " - Fix bugs in macro state machines\n";
         meta.description += "\n";
-        meta.description += "光影开发相关说明：\n";
-        meta.description += " - 光影内可通过 #ifdef MC_MOD_ADVANCED_SHADER 判断是否已加载此模组\n";
-        meta.description += " - Core Profile原理是将顶点属性和Uniform变量替换为宏， 并不是真的实现了Core Profile\n";
-        meta.description += "    - 为保证兼容性，只有光影包 “使用” 了chunkOffset变量的情况才会将此偏移从gl_ModelViewMatrix中分离出来\n";
-        meta.description += " - 如果光影包提供了gbuffers_line着色器， 游戏将会用三角形/四边形模式渲染线段， 同1.17+一致 （为什么OF没有传入线宽度？？）\n";
-        meta.description += "    - 如果没有gbuffers_line， 则会在gbuffers_basic里用线段模式渲染\n";
-        meta.description += "    - 请参考原版1.17自带rendertype_line.vsh着色器文件来编写顶点着色器\n";
-        meta.description += " - 开启各向异性过滤后， 游戏会执行以下操作 （当然也是同高版本OF一致啦= =）\n";
+        meta.description += "Relevant description of shader development:\n";
+        meta.description += " - In shader, #ifdef MC_MOD_ADVANCED_SHADER can be used to determine whether this mod has been loaded\n";
+        meta.description += " - The principle of Core Profile is to replace vertex attributes and Uniform variables with macros, but it does not actually implement Core Profile\n";
+        meta.description += "    - To ensure compatibility, this offset will be separated from gl_ModelViewMatrix only when the shader package \"uses\" the chunkOffset variable\n";
+        meta.description += " - If the light and shadow package provides the gbuffers_line shader, the game will render line segments in triangle/quadrilateral mode, consistent with 1.17+\n";
+        meta.description += "    - If there is no gbuffers_line, it will be rendered in line segment mode in gbuffers_basic\n";
+        meta.description += "    - Please refer to the rendertype_ine.vsh shader file that comes with Minecraft 1.17 to write vertex shaders\n";
+        meta.description += " - After enabling anisotropic filtering, the game will perform the following operations\n";
         meta.description += "    - #define MC_ANISOTROPIC_FILTERING 2-16\n";
-        meta.description += "    - 依次根据纹理分组渲染方块， UV也会做相应修改\n";
-        meta.description += "    - 向spriteBounds Uniform变量写入当前方块所使用的纹理在textures/atlas/blocks.png中的坐标\n";
-        meta.description += " - 渲染机制设为1.16.5之后\n";
-        meta.description += "    - 着色器中的MC_VERSION将被定义为11605， block.properties等文件不受影响\n";
-        meta.description += "    - 游戏将使用高版本的渲染顺序， 例如绊线方块、粒子、云会在半透明方块之后渲染\n";
-        meta.description += "    - 绊线会调用gbuffers_textured_lit着色器而不是gbuffers_water， 并拥有独立的RenderStage\n";
-        meta.description += " - 方块ID设为1.16.5之后\n";
-        meta.description += "    - block/item/entity.properties中的MC_VERSION将被定义为11605， 并会在加载过程中对ID进行转换\n";
-        meta.description += " - 氛围值机制设为1.16.5之后\n";
-        meta.description += "    - 将使用高版本氛围值机制控制环境音效， 并且使光影中的playerMood可用\n";
-        meta.description += " - 这个模组优先考虑的是让不懂开发光影玩家能直接使用高版本光影，所以有些机制设计可能对光影开发者不友好，还请见谅~\n";
+        meta.description += "    - Group and render blocks according to texture, and make corresponding modifications to the UV accordingly\n";
+        meta.description += "    - Write the coordinates of the texture used by the current block in textures/atlas/blocks.comng to the spriteBounds Uniform variable\n";
+        meta.description += " - After setting the rendering mechanism to 1.16.5\n";
+        meta.description += "    - MC_VERSION in the shader will be defined as 11605, and files such as block.exe will not be affected\n";
+        meta.description += "    - The game will use a higher version of the rendering order, such as tripwire blocks, particles, and clouds will be rendered after semi transparent blocks\n";
+        meta.description += "    - The tripwire will call the gbuffers_textured_lit shader instead of gbuffers_water and have an independent RenderStage\n";
+        meta.description += " - After setting the block ID to 1.16.5\n";
+        meta.description += "    - The MC_VERSION in block/item/entity.com will be defined as 11605 and the ID will be converted during the loading process\n";
+        meta.description += " - After setting the atmosphere value mechanism to 1.16.5\n";
+        meta.description += "    - The high version atmosphere value mechanism will be used to control the environment sound effect and make playerMood in shader available\n";
+        meta.description += " - The priority of this mod is to let players who do not know how to develop shader directly use the high version of shader, so some mechanism designs may be unfriendly to shader developers\n";
     }
 
     @Override
