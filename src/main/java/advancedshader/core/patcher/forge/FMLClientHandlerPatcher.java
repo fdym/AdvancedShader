@@ -29,7 +29,7 @@ public class FMLClientHandlerPatcher extends Patcher {
                 ByteCode.AAStore(),
                 inject(ByteCode.Dup()),
                 inject(ByteCode.IConst(1)),
-                inject(ByteCode.Ldc("已启用光影前向兼容")),
+                inject(ByteCode.Ldc("AdvancedShader Enabled")),
                 inject(ByteCode.AAStore()),
                 ByteCode.InvokeStatic("java/util/Arrays", "asList", "([Ljava/lang/Object;)Ljava/util/List;") });
     }
